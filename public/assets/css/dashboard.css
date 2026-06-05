@@ -1,0 +1,50 @@
+body{
+    background:#f5f7fa;
+}
+
+.sidebar{
+    min-height:100vh;
+    background:#1f2937;
+}
+
+.logo{
+    color:#ff6b00;
+    font-weight:bold;
+    font-size:1.8rem;
+}
+
+.sidebar .nav-link{
+    color:#d1d5db;
+    padding:.8rem 1rem;
+    border-radius:10px;
+}
+
+.sidebar .nav-link:hover{
+    background:#374151;
+    color:white;
+}
+
+.card-dashboard{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.card-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    background:#fff4ec;
+    color:#ff6b00;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+}
+
+.topbar{
+    background:white;
+    border-radius:20px;
+    padding:15px 25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
