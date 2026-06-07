@@ -16,4 +16,16 @@ class Usuario
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public function contarAtletas()
+    {
+        $pdo = Database::connect();
+
+        $sql = "SELECT COUNT(*) as total
+                FROM usuarios
+                WHERE tipo = 'atleta'";
+
+        $stmt = $pdo->query($sql);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    }
 }

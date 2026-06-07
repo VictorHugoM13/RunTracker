@@ -33,7 +33,12 @@ class AuthController
             $_SESSION['nome'] = $usuario['nome'];
             $_SESSION['tipo'] = $usuario['tipo'];
 
-            header('Location: ?route=dashboard');
+            if ($usuario['tipo'] === 'admin') {
+                header('Location: ?route=dashboard');
+            } else {
+                header('Location: ?route=dashboard-atleta');
+            }
+
             exit;
         }
 

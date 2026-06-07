@@ -2,8 +2,11 @@
 
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/DashboardController.php';
+require_once '../app/controllers/AtletaController.php';
+require_once '../app/controllers/AtletasController.php';
 require_once '../app/middlewares/AuthMiddleware.php';
 require_once '../app/middlewares/AdminMiddleware.php';
+
 $route = $_GET['route'] ?? 'login';
 
 switch ($route) {
@@ -21,6 +24,26 @@ switch ($route) {
     case 'logout':
         $controller = new AuthController();
         $controller->logout();
+        break;
+    case 'dashboard-atleta':
+        $controller = new AtletaController();
+        $controller->dashboard();
+        break;
+    case 'atletas':
+        $controller = new AtletasController();
+        $controller->index();
+        break;
+    case 'atletas-editar':
+        $controller = new AtletasController();
+        $controller->editar();
+        break;
+    case 'atletas-atualizar':
+        $controller = new AtletasController();
+        $controller->atualizar();
+        break;
+    case 'atletas-excluir':
+        $controller = new AtletasController();
+        $controller->excluir();
         break;
 
     default:
