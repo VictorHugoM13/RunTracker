@@ -58,11 +58,15 @@
 
             <div class="card login-card p-4">
 
-                <div class="text-center mb-4">
+                <div class="text-center mb-3">
                     <h2 class="fw-bold">Bem-vindo!</h2>
                     <p class="text-muted">
                         Acesse sua conta para continuar
                     </p>
+                </div>
+
+                <div class="text-center">
+                    <img src= "assets/img/logo.jpg" class="img-fluid mb-2" style="width: 100px; height: 80px;" alt="logo-runTracker">
                 </div>
 
                 <?php if (isset($erro)): ?>

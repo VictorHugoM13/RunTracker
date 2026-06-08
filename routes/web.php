@@ -45,6 +45,15 @@ switch ($route) {
         $controller = new AtletasController();
         $controller->excluir();
         break;
+    case 'atletas-cadastrar':
+        $controller = new AtletasController();
+        $controller->cadastrar();
+        break;
+
+    case 'atletas-salvar':
+        $controller = new AtletasController();
+        $controller->salvar();
+        break;
 
     default:
         echo "Página não encontrada";

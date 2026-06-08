@@ -1,9 +1,9 @@
 <div class="col-lg-2 sidebar p-4">
 
-    <h2 class="logo mb-5">
-        🏃 RUNTRACKER
-    </h2>
-
+    <div class="text-center">
+        <img src= "assets/img/logo.jpg" class="img-fluid mb-2" style="width: 100px; height: 80px;" alt="logo-runTracker">
+    </div>
+   
     <nav class="nav flex-column">
 
         <a class="nav-link" href="?route=dashboard">

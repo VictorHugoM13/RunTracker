@@ -26,7 +26,10 @@ class AuthController
 
         if (
             $usuario &&
-            $senha === $usuario['senha']
+            password_verify(
+                $senha,
+                $usuario['senha']
+            )
         ) {
 
             $_SESSION['usuario_id'] = $usuario['id'];

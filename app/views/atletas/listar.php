@@ -7,9 +7,11 @@
         <?php require '../app/views/layouts/sidebar.php'; ?>
 
         <div class="col-lg-10 p-4">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between align-items-center">
                 <h1>Atletas</h1>
-                <button class="btn btn-primary p-2">Cadastrar Atleta</button>
+                <a href="?route=atletas-cadastrar" class="btn btn-primary p-2">
+                    Cadastrar Atletas
+                </a>
             </div>
             
 
@@ -17,11 +19,11 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th>Tipo</th>
                             <th>Ativo</th>
+                            <th>Objetivo</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>
@@ -29,13 +31,13 @@
                     <tbody>
                         <?php foreach ($todosAtletas as $atleta) { ?>
                             <tr>
-                                <td><?= $atleta['id'] ?></td>
                                 <td><?= $atleta['nome'] ?></td>
                                 <td><?= $atleta['email'] ?></td>
                                 <td><?= $atleta['tipo'] ?></td>
                                 <td><?=$atleta['ativo'] == 1
                                 ? '<i class="bi bi-check-circle-fill text-success"></i>'
                                 : '<i class="bi bi-x-circle-fill text-danger"></i>' ?></td>
+                                <td><?= $atleta['objetivo'] ?></td>
                                 <td>
                                     <a href="?route=atletas-editar&id=<?= $atleta['id'] ?>" class="btn btn-sm btn-primary">
                                         <i class="bi bi-pencil"></i>

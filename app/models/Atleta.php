@@ -51,6 +51,37 @@
 
             return $stmt->execute([$id]);
         }
+        
+        public function cadastrar($nome, $email, $senha, $objetivo)
+        {
+            $pdo = Database::connect();
+
+            $sql = "INSERT INTO usuarios
+                    (nome, email, senha, tipo, ativo, objetivo)
+                    VALUES (?, ?, ?, 'atleta', 1, ?)";
+
+            $stmt = $pdo->prepare($sql);
+
+            return $stmt->execute([
+                $nome,
+                $email,
+                password_hash($senha, PASSWORD_DEFAULT),
+                $objetivo
+            ]);
+        }
+
+        public function buscarPorEmail($email)
+        {
+            $pdo = Database::connect();
+
+            $sql = "SELECT * FROM usuarios WHERE email = ?";
+
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute([$email]);
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
     }
 
 

@@ -18,4 +18,4 @@ class DashboardController
 
         require '../app/views/dashboard/index.php';
     }
-}
+}   

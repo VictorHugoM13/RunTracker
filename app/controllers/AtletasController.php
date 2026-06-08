@@ -69,6 +69,70 @@
             header('Location: ?route=atletas');
             exit;
         }
+
+        public function cadastrar()
+        {
+            AuthMiddleware::handle();
+            AdminMiddleware::handle();
+
+            require '../app/views/atletas/cadastrar.php';
+        }
+
+        public function salvar()
+        {
+            AuthMiddleware::handle();
+            AdminMiddleware::handle();
+
+            $nome = trim($_POST['nome'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $senha = trim($_POST['senha'] ?? '');
+            $objetivo = trim($_POST['objetivo'] ?? '');
+
+            // Campos obrigatórios
+            if (
+                empty($nome) ||
+                empty($email) ||
+                empty($senha) ||
+                empty($objetivo)
+            ) {
+
+                $erro = "Preencha todos os campos.";
+
+                require '../app/views/atletas/cadastrar.php';
+                return;
+            }
+
+            // Formato do e-mail
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                $erro = "Informe um e-mail válido.";
+
+                require '../app/views/atletas/cadastrar.php';
+                return;
+            }
+
+            $atleta = new Atleta();
+
+            // E-mail já cadastrado
+            if ($atleta->buscarPorEmail($email)) {
+
+                $erro = "Este e-mail já está cadastrado.";
+
+                require '../app/views/atletas/cadastrar.php';
+                return;
+            }
+
+            // Cadastrar atleta
+            $atleta->cadastrar(
+                $nome,
+                $email,
+                $senha,
+                $objetivo
+            );
+
+            header('Location: ?route=atletas');
+            exit;
+        }
     }
 
 
