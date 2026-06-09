@@ -25,6 +25,7 @@
                             <th>Ativo</th>
                             <th>Objetivo</th>
                             <th>Editar</th>
+                            <th>Treinos</th>
                             <th>Excluir</th>
                         </tr>
                     </thead>
@@ -41,6 +42,12 @@
                                 <td>
                                     <a href="?route=atletas-editar&id=<?= $atleta['id'] ?>" class="btn btn-sm btn-primary">
                                         <i class="bi bi-pencil"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="?route=treinos-cadastrar&atleta_id=<?= $atleta['id'] ?>"
+                                    class="btn btn-sm btn-info">
+                                    <i class="bi bi-journal-text"></i>
                                     </a>
                                 </td>
                                 <td>

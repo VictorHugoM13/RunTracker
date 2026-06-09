@@ -3,6 +3,7 @@
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/DashboardController.php';
 require_once '../app/controllers/AtletaController.php';
+require_once '../app/controllers/TreinosController.php';
 require_once '../app/controllers/AtletasController.php';
 require_once '../app/middlewares/AuthMiddleware.php';
 require_once '../app/middlewares/AdminMiddleware.php';
@@ -52,6 +53,15 @@ switch ($route) {
 
     case 'atletas-salvar':
         $controller = new AtletasController();
+        $controller->salvar();
+        break;
+    case 'treinos-cadastrar':
+        $controller = new TreinosController();
+        $controller->cadastrar();
+        break;
+
+    case 'treinos-salvar':
+        $controller = new TreinosController();
         $controller->salvar();
         break;
 
