@@ -5,10 +5,16 @@ require_once __DIR__ . '/../models/Treino.php';
 
 class TreinosController
 {
+    private $treino;
+
+    public function __construct()
+    {
+        $this->treino = new Treino();
+    }
+
     public function cadastrar()
     {
-        AuthMiddleware::handle();
-        AdminMiddleware::handle();
+        $this->middlewares();
 
         $atleta = $this->buscarAtleta(
             $_GET['atleta_id'] ?? null
@@ -19,8 +25,7 @@ class TreinosController
 
     public function salvar()
     {
-        AuthMiddleware::handle();
-        AdminMiddleware::handle();
+        $this->middlewares();
 
         $dados = $this->obterDadosFormulario();
 
@@ -28,25 +33,34 @@ class TreinosController
             $dados['atleta_id']
         );
 
-        $erro = $this->validarDados($dados);
+        // Validação de entrada
 
-        if ($erro) {
+        if (
+            empty($dados['titulo']) ||
+            empty($dados['tipo']) ||
+            empty($dados['unidade']) ||
+            empty($dados['valor']) ||
+            empty($dados['treino']) ||
+            empty($dados['data_treino'])
+        ) {
+
+            $erro = 'Preencha todos os campos obrigatórios.';
+
             require '../app/views/treinos/cadastrar.php';
             return;
         }
 
-        $treinoModel = new Treino();
+        // Regras de negócio
 
-        $treinoModel->cadastrar(
-            $dados['atleta_id'],
-            $dados['titulo'],
-            $dados['tipo'],
-            $dados['unidade'],
-            $dados['valor'],
-            $dados['treino'],
-            $dados['observacoes'],
-            $dados['data_treino']
-        );
+        $resultado = $this->treino->cadastrar($dados);
+
+        if ($resultado !== true) {
+
+            $erro = $resultado;
+
+            require '../app/views/treinos/cadastrar.php';
+            return;
+        }
 
         header('Location: ?route=atletas');
         exit;
@@ -78,27 +92,9 @@ class TreinosController
         return $atletaModel->buscarPorId($id);
     }
 
-    private function validarDados($dados)
+    private function middlewares()
     {
-        if (
-            empty($dados['titulo']) ||
-            empty($dados['tipo']) ||
-            empty($dados['unidade']) ||
-            empty($dados['valor']) ||
-            empty($dados['treino']) ||
-            empty($dados['data_treino'])
-        ) {
-            return 'Preencha todos os campos obrigatórios.';
-        }
-
-        if ($dados['valor'] <= 0) {
-            return 'O valor deve ser maior que zero.';
-        }
-
-        if ($dados['data_treino'] < date('Y-m-d')) {
-            return 'A data do treino não pode ser anterior à data atual.';
-        }
-
-        return null;
+        AuthMiddleware::handle();
+        AdminMiddleware::handle();
     }
 }

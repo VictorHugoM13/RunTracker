@@ -6,52 +6,58 @@ class AuthController
 {
     public function login()
     {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $email = trim($_POST['email'] ?? '');
-        $senha = trim($_POST['senha'] ?? '');
+            $email = trim($_POST['email'] ?? '');
+            $senha = trim($_POST['senha'] ?? '');
 
-        if (empty($email) || empty($senha)) {
+            // Validação de entrada
 
-            $erro = "Preencha todos os campos.";
+            if (empty($email) || empty($senha)) {
 
-            require '../app/views/auth/login.php';
+                $erro = "Preencha todos os campos.";
 
-            return;
-        }
+                require '../app/views/auth/login.php';
 
-        $usuarioModel = new Usuario();
+                return;
+            }
 
-        $usuario = $usuarioModel->buscarPorEmail($email);
+            $usuarioModel = new Usuario();
 
-        if (
-            $usuario &&
-            password_verify(
-                $senha,
-                $usuario['senha']
-            )
-        ) {
+            $resultado = $usuarioModel->autenticar(
+                $email,
+                $senha
+            );
 
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['nome'] = $usuario['nome'];
-            $_SESSION['tipo'] = $usuario['tipo'];
+            if (is_string($resultado)) {
 
-            if ($usuario['tipo'] === 'admin') {
+                $erro = $resultado;
+
+                require '../app/views/auth/login.php';
+
+                return;
+            }
+
+            $_SESSION['usuario_id'] = $resultado['id'];
+            $_SESSION['nome'] = $resultado['nome'];
+            $_SESSION['tipo'] = $resultado['tipo'];
+
+            if ($resultado['tipo'] === 'admin') {
+
                 header('Location: ?route=dashboard');
+
             } else {
+
                 header('Location: ?route=dashboard-atleta');
+
             }
 
             exit;
         }
 
-        $erro = "Usuário ou senha inválidos.";
-
         require '../app/views/auth/login.php';
     }
 
-    require '../app/views/auth/login.php';
-    }
     public function logout()
     {
         session_unset();

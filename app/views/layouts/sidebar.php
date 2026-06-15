@@ -1,7 +1,8 @@
 <div class="col-lg-2 sidebar p-4">
 
     <div class="text-center">
-        <img src= "assets/img/logo.jpg" class="img-fluid mb-2" style="width: 100px; height: 80px;" alt="logo-runTracker">
+        <a href="?route=dashboard"><img src= "assets/img/logo.jpg" class="img-fluid mb-2" style="width: 100px; height: 80px;" alt="logo-runTracker"></a>
+        
     </div>
    
     <nav class="nav flex-column">
